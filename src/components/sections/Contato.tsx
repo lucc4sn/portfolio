@@ -3,10 +3,41 @@ import { SectionReveal } from "../SectionReveal";
 
 export function Contato() {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setLoading(true);
+    setError("");
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const data = {
+        nome: formData.get("nome"),
+        email: formData.get("email"),
+        mensagem: formData.get("mensagem"),
+      };
+
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const response = await fetch(`${apiUrl}/send-message`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSent(true);
+        e.currentTarget.reset();
+      } else {
+        setError("Erro ao enviar mensagem. Tente novamente.");
+      }
+    } catch (err) {
+      setError("Erro de conexão. Tente novamente.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -82,11 +113,13 @@ export function Contato() {
               <Field label="Nome" name="nome" />
               <Field label="E-mail" name="email" type="email" />
               <Field label="Mensagem" name="mensagem" textarea />
+              {error && <p className="text-sm text-red-500">{error}</p>}
               <button
                 type="submit"
-                className="group inline-flex items-center gap-3 bg-accent px-8 py-4 font-mono text-xs uppercase tracking-widest text-accent-foreground transition-transform hover:-translate-y-0.5"
+                disabled={loading || sent}
+                className="group inline-flex items-center gap-3 bg-accent px-8 py-4 font-mono text-xs uppercase tracking-widest text-accent-foreground transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {sent ? "Mensagem enviada ✓" : "Enviar mensagem"}
+                {sent ? "Mensagem enviada ✓" : loading ? "Enviando..." : "Enviar mensagem"}
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </button>
             </form>
