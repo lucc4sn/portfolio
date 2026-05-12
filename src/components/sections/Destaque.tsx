@@ -14,7 +14,7 @@ export function Destaque() {
             style={{ fontSize: "clamp(2.5rem, 8vw, 7rem)" }}
           >
             "Conteúdo baseado em dados gera{" "}
-            <span className="text-accent">6x mais conversões</span>
+            <span className="text-accent">6x mais conversões </span>
             do que conteúdo tradicional."
           </p>
           <div className="mt-10 font-mono text-xs uppercase tracking-widest text-muted-foreground">
