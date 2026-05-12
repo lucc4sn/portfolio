@@ -5,7 +5,6 @@ const links = [
   { href: "#projetos", label: "Cases" },
   { href: "#stack", label: "Stack" },
   { href: "#experiencia", label: "Experiência" },
-  { href: "#contato", label: "Contato" },
 ];
 
 export function Nav() {
@@ -42,7 +41,7 @@ export function Nav() {
           href="#contato"
           className="hidden border border-accent px-4 py-2 font-mono text-xs uppercase tracking-widest text-accent transition-colors hover:bg-accent hover:text-accent-foreground md:inline-block"
         >
-          Disponível →
+          Contato
         </a>
       </nav>
     </header>

@@ -14,7 +14,8 @@ export function Sobre() {
       <div className="mx-auto max-w-[1600px] px-6 md:px-12">
         <SectionReveal>
           <div className="mb-16 flex items-center gap-4 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-            <span className="text-accent">[Portfólio]</span>
+            <span className="text-accent">[01]</span>
+            <span>/ Sobre</span>
             <div className="h-px flex-1 bg-border" />
           </div>
         </SectionReveal>
